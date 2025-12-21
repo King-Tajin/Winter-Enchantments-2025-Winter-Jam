@@ -18,6 +18,7 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
+import java.util.Random;
 
 public class SnowdriftEnchantmentHandler {
     private static final ResourceKey<Enchantment> SNOWDRIFT = ResourceKey.create(
@@ -26,7 +27,10 @@ public class SnowdriftEnchantmentHandler {
     );
 
     private static final Map<BlockPos, Long> placedSnow = new HashMap<>();
+    private static final Map<BlockPos, Integer> meltTimes = new HashMap<>();
     private static final int MELT_TIME_TICKS = 1000;
+    private static final int MELT_TIME_VARIANCE = 40;
+    private static final Random random = new Random();
 
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
@@ -70,7 +74,10 @@ public class SnowdriftEnchantmentHandler {
                             level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 3);
                             boolean isColdBiome = level.getBiome(pos).value().coldEnoughToSnow(pos, level.getSeaLevel());
                             if (!isColdBiome) {
-                                placedSnow.put(pos.immutable(), currentTime);
+                                BlockPos immutablePos = pos.immutable();
+                                placedSnow.put(immutablePos, currentTime);
+                                int meltTime = MELT_TIME_TICKS + random.nextInt(MELT_TIME_VARIANCE * 2 + 1) - MELT_TIME_VARIANCE;
+                                meltTimes.put(immutablePos, meltTime);
                             }
                         }
                     }
@@ -91,13 +98,15 @@ public class SnowdriftEnchantmentHandler {
             Map.Entry<BlockPos, Long> entry = iterator.next();
             BlockPos pos = entry.getKey();
             long placedTime = entry.getValue();
+            int meltTime = meltTimes.getOrDefault(pos, MELT_TIME_TICKS);
 
-            if (currentTime - placedTime > MELT_TIME_TICKS) {
+            if (currentTime - placedTime > meltTime) {
                 BlockState state = level.getBlockState(pos);
                 if (state.is(Blocks.SNOW)) {
                     level.removeBlock(pos, false);
                 }
                 iterator.remove();
+                meltTimes.remove(pos);
             }
         }
     }
