@@ -6,3 +6,10 @@ Planned enchantment ideas:
 - ice claws
 - snow runner
 - snowdrift
+- ice skates
+- (some sort of frost combat thing)
+
+
+Other ideas:
+- villager
+- loot tables
