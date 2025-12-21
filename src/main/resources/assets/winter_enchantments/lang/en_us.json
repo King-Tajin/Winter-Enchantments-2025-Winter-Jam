@@ -1,4 +1,7 @@
 {
   "enchantment.winter_enchantments.snow_shoes": "Snow Shoes",
-  "enchantment.winter_enchantments.ice_claws": "Ice Claws"
+  "enchantment.winter_enchantments.ice_claws": "Ice Claws",
+  "enchantment.winter_enchantments.snow_runner": "Snow Runner",
+  "enchantment.winter_enchantments.snowdrift": "Snowdrift",
+  "entity.minecraft.villager.snow_scribe": "Snow Scribe"
 }
