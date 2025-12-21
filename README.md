@@ -2,7 +2,7 @@
 
 
 Planned enchantment ideas:
-- snow shoes (almost done)
+- snow shoes
 - ice claws
 - snow runner
 - snowdrift
@@ -11,7 +11,8 @@ Planned enchantment ideas:
 
 
 Other ideas:
-- villager
+- villager (needs texture)
+- trades
 - loot tables
 - house for villager (job for lizzy)
 
