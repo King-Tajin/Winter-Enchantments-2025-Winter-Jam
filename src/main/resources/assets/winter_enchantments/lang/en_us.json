@@ -1,5 +1,3 @@
 {
-  "itemGroup.winter_enchantments": "Example Mod Tab",
-  "block.winter_enchantments.example_block": "Example Block",
-  "item.winter_enchantments.example_item": "Example Item"
+  "enchantment.winter_enchantments.snow_shoes": "Snow Shoes"
 }
