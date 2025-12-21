@@ -28,8 +28,8 @@ public class SnowdriftEnchantmentHandler {
 
     private static final Map<BlockPos, Long> placedSnow = new HashMap<>();
     private static final Map<BlockPos, Integer> meltTimes = new HashMap<>();
-    private static final int MELT_TIME_TICKS = 1000;
-    private static final int MELT_TIME_VARIANCE = 40;
+    private static final int MELT_TIME_TICKS = 400;
+    private static final int MELT_TIME_VARIANCE = 50;
     private static final Random random = new Random();
 
     public static void onPlayerTick(PlayerTickEvent.Post event) {
