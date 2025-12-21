@@ -14,10 +14,9 @@ public class WinterEnchantmentsTrades {
 
     @SubscribeEvent
     public static void onVillagerTrades(VillagerTradesEvent event) {
-        if (event.getType().equals(WinterEnchantmentsVillagers.SNOW_SCRIBE_KEY)) {
+        if (event.getType().equals(WinterEnchantmentsVillagers.SNOW_SCRIBE.getKey())) {
             var trades = event.getTrades();
 
-            // Novice trades (Level 1)
             trades.get(1).add((trader, random, level) -> new MerchantOffer(
                     new ItemCost(Items.EMERALD, 1),
                     new ItemStack(Items.PAPER, 24),
@@ -30,7 +29,6 @@ public class WinterEnchantmentsTrades {
                     16, 1, 0.05f
             ));
 
-            // Apprentice trades (Level 2)
             trades.get(2).add((trader, random, level) -> new MerchantOffer(
                     new ItemCost(Items.EMERALD, 3),
                     new ItemStack(Items.SNOW_BLOCK, 8),
