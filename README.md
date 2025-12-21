@@ -13,3 +13,8 @@ Planned enchantment ideas:
 Other ideas:
 - villager
 - loot tables
+- house for villager (job for lizzy)
+
+
+Todo:
+- balance enchants (at the end)
