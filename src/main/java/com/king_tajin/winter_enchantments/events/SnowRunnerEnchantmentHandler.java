@@ -14,9 +14,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+
+import java.util.List;
 
 public class SnowRunnerEnchantmentHandler {
     private static final ResourceKey<Enchantment> SNOW_RUNNER = ResourceKey.create(
@@ -25,6 +28,16 @@ public class SnowRunnerEnchantmentHandler {
     );
 
     private static final Identifier SPEED_MODIFIER_ID = Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_runner_speed");
+
+    private static final List<Block> SPEED_BLOCKS = List.of(
+            Blocks.SNOW,
+            Blocks.SNOW_BLOCK,
+            Blocks.POWDER_SNOW,
+            Blocks.ICE,
+            Blocks.BLUE_ICE,
+            Blocks.FROSTED_ICE,
+            Blocks.PACKED_ICE
+    );
 
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
@@ -55,13 +68,13 @@ public class SnowRunnerEnchantmentHandler {
                     BlockState current = player.level().getBlockState(pos);
                     BlockState below = player.level().getBlockState(pos.below());
 
-                    if (current.is(Blocks.SNOW) || below.is(Blocks.SNOW) ||
-                            below.is(Blocks.SNOW_BLOCK) || below.is(Blocks.POWDER_SNOW)) {
+                    if (SPEED_BLOCKS.contains(current.getBlock()) ||
+                            SPEED_BLOCKS.contains(below.getBlock())) {
 
                         shouldHaveSpeed = true;
 
                         if (!hasModifier) {
-                            double speedBonus = 0.015 * level;
+                            double speedBonus = 0.012 * level + 0.02;
                             movementSpeed.addTransientModifier(new AttributeModifier(
                                     SPEED_MODIFIER_ID,
                                     speedBonus,
