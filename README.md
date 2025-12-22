@@ -19,3 +19,4 @@ Other ideas:
 
 Todo:
 - balance enchants (at the end)
+- enchantment conflicts
