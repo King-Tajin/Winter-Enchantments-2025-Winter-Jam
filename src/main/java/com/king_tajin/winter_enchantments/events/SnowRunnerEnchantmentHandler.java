@@ -73,8 +73,11 @@ public class SnowRunnerEnchantmentHandler {
 
                         shouldHaveSpeed = true;
 
-                        if (!hasModifier) {
-                            double speedBonus = 0.012 * level + 0.02;
+                        AttributeModifier existingModifier = movementSpeed.getModifier(SPEED_MODIFIER_ID);
+                        double speedBonus = getSpeedForLevel(level);
+
+                        if (existingModifier == null || existingModifier.amount() != speedBonus) {
+                            movementSpeed.removeModifier(SPEED_MODIFIER_ID);
                             movementSpeed.addTransientModifier(new AttributeModifier(
                                     SPEED_MODIFIER_ID,
                                     speedBonus,
@@ -89,5 +92,14 @@ public class SnowRunnerEnchantmentHandler {
         if (!shouldHaveSpeed && hasModifier) {
             movementSpeed.removeModifier(SPEED_MODIFIER_ID);
         }
+    }
+
+    private static double getSpeedForLevel(int level) {
+        return switch (level) {
+            case 1 -> 0.03;
+            case 2 -> 0.045;
+            case 3 -> 0.06;
+            default -> 0.0;
+        };
     }
 }
