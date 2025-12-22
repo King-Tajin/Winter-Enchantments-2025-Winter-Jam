@@ -1,5 +1,6 @@
 package com.king_tajin.winter_enchantments;
 
+import com.king_tajin.winter_enchantments.events.FrostResistanceHandler;
 import com.king_tajin.winter_enchantments.events.SnowRunnerEnchantmentHandler;
 import com.king_tajin.winter_enchantments.events.SnowdriftEnchantmentHandler;
 import com.king_tajin.winter_enchantments.init.WinterEnchantmentsVillagers;
@@ -17,6 +18,7 @@ public class WinterEnchantments {
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onLevelTick);
         NeoForge.EVENT_BUS.addListener(SnowRunnerEnchantmentHandler::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(FrostResistanceHandler::onEntityTick);
     }
 
 }

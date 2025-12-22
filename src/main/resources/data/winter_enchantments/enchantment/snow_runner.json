@@ -17,5 +17,6 @@
   "slots": [
     "feet"
   ],
+  "primary_items": "#minecraft:enchantable/foot_armor",
   "effects": {}
 }
