@@ -1,5 +1,6 @@
 package com.king_tajin.winter_enchantments;
 
+import com.king_tajin.winter_enchantments.events.SnowRunnerEnchantmentHandler;
 import com.king_tajin.winter_enchantments.events.SnowdriftEnchantmentHandler;
 import com.king_tajin.winter_enchantments.init.WinterEnchantmentsVillagers;
 import net.neoforged.bus.api.IEventBus;
@@ -15,6 +16,7 @@ public class WinterEnchantments {
         WinterEnchantmentsVillagers.VILLAGER_PROFESSIONS.register(modEventBus);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onLevelTick);
+        NeoForge.EVENT_BUS.addListener(SnowRunnerEnchantmentHandler::onPlayerTick);
     }
 
 }
