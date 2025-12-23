@@ -96,9 +96,9 @@ public class SnowRunnerEnchantmentHandler {
 
     private static double getSpeedForLevel(int level) {
         return switch (level) {
-            case 1 -> 0.03;
+            case 1 -> 0.035;
             case 2 -> 0.045;
-            case 3 -> 0.06;
+            case 3 -> 0.05;
             default -> 0.0;
         };
     }

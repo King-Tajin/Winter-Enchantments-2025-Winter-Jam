@@ -2,24 +2,26 @@
 
 
 Planned enchantment ideas:
-- snow shoes
-- ice claws
-- snow runner
-- snowdrift
-- (some sort of frost combat thing)
-- frost resistance
+- snow shoes (done)
+- ice claws (needs functionality)
+- snow runner (done)
+- snowdrift (done)
+- frostbite (needs balancing)
+- frost resistance (needs balancing)
+- winter stability (better name?) (needs functionality)
 
 
 Other ideas:
 - villager (needs texture)
-- trades
-- loot tables
-- house for villager (job for lizzy)
+- trades (mostly done)
+- loot tables (done)
+- house for villager (job for lizzy) (done)
+- (some sort of ice worldgen feature) (not started)
 
 
 Todo:
 - balance enchants (at the end)
-- enchantment conflicts
+- enchantment conflicts (might not be needed)
 
 
 
