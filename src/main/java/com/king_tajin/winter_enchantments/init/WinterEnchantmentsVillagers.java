@@ -1,4 +1,5 @@
 package com.king_tajin.winter_enchantments.init;
+
 import com.google.common.collect.ImmutableSet;
 import com.king_tajin.winter_enchantments.WinterEnchantments;
 import net.minecraft.core.registries.Registries;
