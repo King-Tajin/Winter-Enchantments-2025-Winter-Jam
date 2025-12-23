@@ -9,7 +9,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.HashMap;
@@ -24,7 +23,6 @@ public class FrostResistanceHandler {
 
     private static final Map<UUID, Integer> tickCounters = new HashMap<>();
 
-    @SubscribeEvent
     public static void onEntityTick(EntityTickEvent.Pre event) {
         if (!(event.getEntity() instanceof LivingEntity entity)) {
             return;
@@ -59,9 +57,9 @@ public class FrostResistanceHandler {
         int counter = tickCounters.getOrDefault(entityId, 0) + 1;
 
         boolean shouldReduce = switch (frostLevel) {
-            case 1 -> counter % 10 == 1 || counter % 10 == 4 || counter % 10 == 7; //30%
-            case 2 -> counter % 5 == 1 || counter % 5 == 3 || counter % 5 == 0; //60%
-            case 3 -> counter % 10 != 0; //90%
+            case 1 -> counter % 10 < 3;
+            case 2 -> counter % 10 < 6;
+            case 3 -> counter % 10 < 8;
             default -> false;
         };
 
