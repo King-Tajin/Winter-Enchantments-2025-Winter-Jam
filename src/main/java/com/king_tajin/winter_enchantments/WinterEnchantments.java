@@ -22,13 +22,14 @@ public class WinterEnchantments {
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onLevelTick);
         NeoForge.EVENT_BUS.addListener(SnowRunnerEnchantmentHandler::onPlayerTick);
-        NeoForge.EVENT_BUS.addListener(FrostResistanceHandler::onEntityTick);
+        NeoForge.EVENT_BUS.addListener(FrostResistanceEnchantmentHandler::onEntityTick);
         NeoForge.EVENT_BUS.addListener(FrostbiteEnchantmentHandler::onEntityDamage);
         NeoForge.EVENT_BUS.addListener(FrostbiteEnchantmentHandler::onEntityTick);
         NeoForge.EVENT_BUS.addListener(FrostbiteEnchantmentHandler::onEntityDeath);
         NeoForge.EVENT_BUS.addListener(WinterEnchantmentsTrades::onVillagerTrades);
-        NeoForge.EVENT_BUS.addListener(FrozenStabilityHandler::onKnockback);
-        NeoForge.EVENT_BUS.addListener(FrozenStabilityHandler::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(FrozenStabilityEnchantmentHandler::onKnockback);
+        NeoForge.EVENT_BUS.addListener(FrozenStabilityEnchantmentHandler::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(SnowCushionEnchantmentHandler::onLivingFall);
     }
 
 }

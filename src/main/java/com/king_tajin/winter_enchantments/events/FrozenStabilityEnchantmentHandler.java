@@ -15,7 +15,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-public class FrozenStabilityHandler {
+public class FrozenStabilityEnchantmentHandler {
 
     private static final ResourceKey<Enchantment> FROZEN_STABILITY =
             ResourceKey.create(Registries.ENCHANTMENT,

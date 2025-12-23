@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class FrostResistanceHandler {
+public class FrostResistanceEnchantmentHandler {
 
     private static final ResourceKey<Enchantment> FROST_RESISTANCE =
             ResourceKey.create(Registries.ENCHANTMENT,
