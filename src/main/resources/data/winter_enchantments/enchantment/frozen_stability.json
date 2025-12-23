@@ -1,6 +1,6 @@
 {
   "description": {
-    "translate": "enchantment.winter_enchantments.winter_stability"
+    "translate": "enchantment.winter_enchantments.frozen_stability"
   },
   "supported_items": "#minecraft:enchantable/leg_armor",
   "weight": 1,

@@ -27,6 +27,8 @@ public class WinterEnchantments {
         NeoForge.EVENT_BUS.addListener(FrostbiteEnchantmentHandler::onEntityTick);
         NeoForge.EVENT_BUS.addListener(FrostbiteEnchantmentHandler::onEntityDeath);
         NeoForge.EVENT_BUS.addListener(WinterEnchantmentsTrades::onVillagerTrades);
+        NeoForge.EVENT_BUS.addListener(FrozenStabilityHandler::onKnockback);
+        NeoForge.EVENT_BUS.addListener(FrozenStabilityHandler::onPlayerTick);
     }
 
 }
