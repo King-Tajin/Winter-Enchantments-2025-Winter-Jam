@@ -28,7 +28,7 @@ public class SnowdriftEnchantmentHandler {
 
     private static final Map<BlockPos, Long> placedSnow = new HashMap<>();
     private static final Map<BlockPos, Integer> meltTimes = new HashMap<>();
-    private static final int MELT_TIME_TICKS = 400;
+    private static final int MELT_TIME_TICKS = 350;
     private static final int MELT_TIME_VARIANCE = 50;
     private static final Random random = new Random();
 
@@ -50,10 +50,6 @@ public class SnowdriftEnchantmentHandler {
         );
 
         if (enchantmentLevel <= 0) {
-            return;
-        }
-
-        if (player.tickCount % 2 != 0) {
             return;
         }
 

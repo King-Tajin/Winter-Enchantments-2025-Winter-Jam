@@ -3,14 +3,14 @@
     "translate": "enchantment.winter_enchantments.frostbite"
   },
   "supported_items": "#minecraft:enchantable/weapon",
-  "weight": 2,
+  "weight": 4,
   "max_level": 3,
   "min_cost": {
     "base": 10,
     "per_level_above_first": 10
   },
   "max_cost": {
-    "base": 30,
+    "base": 75,
     "per_level_above_first": 10
   },
   "anvil_cost": 4,
