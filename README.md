@@ -20,3 +20,8 @@ Other ideas:
 Todo:
 - balance enchants (at the end)
 - enchantment conflicts
+
+
+
+https://www.planetminecraft.com/banner/snow-covered-tree-optifine-cape-compatible/
+https://www.planetminecraft.com/banner/cool-snow-banner/
