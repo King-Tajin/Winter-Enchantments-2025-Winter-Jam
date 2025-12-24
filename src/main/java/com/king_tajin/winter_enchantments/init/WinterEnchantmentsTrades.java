@@ -38,139 +38,133 @@ public class WinterEnchantmentsTrades {
 
     private static final ResourceKey<Enchantment> FROZEN_STABILITY =
             ResourceKey.create(Registries.ENCHANTMENT,
-                    Identifier.fromNamespaceAndPath("minecraft", "frozen_stability"));
+                    Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "frozen_stability"));
 
     private static final ResourceKey<Enchantment> SNOW_SHOES =
             ResourceKey.create(Registries.ENCHANTMENT,
-                    Identifier.fromNamespaceAndPath("minecraft", "snow_shoes"));
+                    Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_shoes"));
 
     private static final ResourceKey<Enchantment> SNOWDRIFT =
             ResourceKey.create(Registries.ENCHANTMENT,
-                    Identifier.fromNamespaceAndPath("minecraft", "snowdrift"));
+                    Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snowdrift"));
 
     private static final ResourceKey<Enchantment> SNOW_CUSHION =
             ResourceKey.create(Registries.ENCHANTMENT,
-                    Identifier.fromNamespaceAndPath("minecraft", "snow_cushion"));
+                    Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_cushion"));
 
     public static void onVillagerTrades(VillagerTradesEvent event) {
         if (event.getType().equals(WinterEnchantmentsVillagers.SNOW_SCRIBE.getKey())) {
             var trades = event.getTrades();
 
-            trades.get(1).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 1),
-                    new ItemStack(Items.PAPER, 24),
+            trades.get(1).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.PAPER, 24),
+                    new ItemStack(Items.EMERALD, 1),
                     16, 2, 0.05f
             ));
 
-            trades.get(1).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.SNOWBALL, 16),
+            trades.get(1).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.SNOWBALL, 24),
                     new ItemStack(Items.EMERALD, 1),
                     16, 1, 0.05f
             ));
 
-            trades.get(1).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 5),
-                    new ItemStack(Items.BOOK, 3),
-                    12, 1, 0.05f
+            trades.get(1).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 1),
+                    new ItemStack(Items.SNOW_BLOCK, 4),
+                    16, 1, 0.05f
             ));
 
-            trades.get(1).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.RABBIT_HIDE, 9),
+            trades.get(1).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.RABBIT_HIDE, 6),
                     new ItemStack(Items.EMERALD, 1),
-                    12, 1, 0.05f
+                    16, 1, 0.05f
             ));
 
-            trades.get(2).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 3),
-                    new ItemStack(Items.SNOW_BLOCK, 8),
-                    12, 5, 0.05f
-            ));
-
-            trades.get(2).add((trader, random, level) -> new MerchantOffer(
+            trades.get(2).add((trader, rand, level) -> new MerchantOffer(
                     new ItemCost(Items.EMERALD, 2),
-                    new ItemStack(Items.ICE, 4),
+                    new ItemStack(Items.ICE, 6),
                     12, 5, 0.05f
             ));
 
-            trades.get(2).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 3),
+            trades.get(2).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 5),
                     new ItemStack(Items.LEATHER_BOOTS, 1),
                     12, 5, 0.05f
             ));
 
-            trades.get(2).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.SNOW_BLOCK, 4),
+            trades.get(2).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.SNOW_BLOCK, 8),
                     new ItemStack(Items.EMERALD, 1),
                     12, 5, 0.05f
             ));
 
-            trades.get(2).add((trader, random, level) -> {
+            trades.get(2).add((trader, rand, level) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, trader.registryAccess(), FROZEN_STABILITY, 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 12),
+                        new ItemCost(Items.EMERALD, 8),
                         book,
                         12, 10, 0.2f
                 );
             });
 
-            trades.get(3).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 4),
+            trades.get(2).add((trader, rand, level) -> {
+                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+                addEnchantment(book, trader.registryAccess(), ICE_CLAWS, 1);
+                return new MerchantOffer(
+                        new ItemCost(Items.EMERALD, 10),
+                        book,
+                        12, 10, 0.2f
+                );
+            });
+
+            trades.get(3).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 3),
                     new ItemStack(Items.PACKED_ICE, 4),
                     12, 10, 0.05f
             ));
 
-            trades.get(3).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 6),
+            trades.get(3).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 8),
                     new ItemStack(Items.POWDER_SNOW_BUCKET, 1),
                     8, 10, 0.05f
             ));
 
-            trades.get(3).add((trader, random, level) -> {
+            trades.get(3).add((trader, rand, level) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, trader.registryAccess(), SNOW_SHOES, 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 12),
+                        new ItemCost(Items.EMERALD, 10),
                         book,
                         12, 10, 0.2f
                 );
             });
 
-            trades.get(3).add((trader, random, level) -> {
-                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-                addEnchantment(book, trader.registryAccess(), SNOWDRIFT, 2);
-                return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 12),
-                        book,
-                        12, 10, 0.2f
-                );
-            });
-
-            trades.get(3).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 5),
+            trades.get(3).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 3),
                     new ItemStack(Items.SNOWBALL, 32),
                     16, 10, 0.05f
             ));
 
-            trades.get(4).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 8),
+            trades.get(3).add((trader, rand, level) -> {
+                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+                addEnchantment(book, trader.registryAccess(), SNOW_CUSHION, 1);
+                return new MerchantOffer(
+                        new ItemCost(Items.EMERALD, 10),
+                        book,
+                        12, 10, 0.2f
+                );
+            });
+
+            trades.get(4).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 6),
                     new ItemStack(Items.BLUE_ICE, 2),
                     12, 15, 0.05f
             ));
 
-            trades.get(4).add((trader, random, level) -> {
+            trades.get(4).add((net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity trader, net.minecraft.util.RandomSource rand) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-                addEnchantment(book, trader.registryAccess(), FROST_RESISTANCE, 2);
-                return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 15),
-                        book,
-                        12, 15, 0.2f
-                );
-            });
-
-            trades.get(4).add((trader, random, level) -> {
-                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-                addEnchantment(book, trader.registryAccess(), FROST_WALKER, 2);
+                addEnchantment(book, level.registryAccess(), FROST_RESISTANCE, rand.nextInt(3) + 1);
                 return new MerchantOffer(
                         new ItemCost(Items.EMERALD, 18),
                         book,
@@ -178,66 +172,62 @@ public class WinterEnchantmentsTrades {
                 );
             });
 
-            trades.get(4).add((trader, random, level) -> {
+            trades.get(4).add((net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity trader, net.minecraft.util.RandomSource rand) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-                addEnchantment(book, trader.registryAccess(), SNOW_CUSHION, 1);
+                addEnchantment(book, level.registryAccess(), FROST_WALKER, rand.nextInt(2) + 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 12),
+                        new ItemCost(Items.EMERALD, 22),
                         book,
-                        12, 10, 0.2f
+                        12, 15, 0.2f
                 );
             });
 
-            trades.get(4).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 7),
+            trades.get(4).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 10),
                     new ItemStack(Items.SNOW_GOLEM_SPAWN_EGG, 1),
                     6, 15, 0.05f
             ));
 
-            trades.get(5).add((trader, random, level) -> {
+            trades.get(5).add((net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity trader, net.minecraft.util.RandomSource rand) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-                addEnchantment(book, trader.registryAccess(), FROSTBITE, 2);
+                addEnchantment(book, level.registryAccess(), FROSTBITE, rand.nextInt(3) + 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 20),
+                        new ItemCost(Items.EMERALD, 24),
                         book,
                         12, 30, 0.2f
                 );
             });
 
-            trades.get(5).add((trader, random, level) -> {
+            trades.get(5).add((net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity trader, net.minecraft.util.RandomSource rand) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-                addEnchantment(book, trader.registryAccess(), ICE_CLAWS, 1);
+                addEnchantment(book, level.registryAccess(), SNOWDRIFT, rand.nextInt(3) + 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 22),
+                        new ItemCost(Items.EMERALD, 32),
                         book,
                         12, 30, 0.2f
                 );
             });
 
-            trades.get(5).add((trader, random, level) -> {
+            trades.get(5).add((net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity trader, net.minecraft.util.RandomSource rand) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-                addEnchantment(book, trader.registryAccess(), SNOW_RUNNER, 2);
+                addEnchantment(book, level.registryAccess(), SNOW_RUNNER, rand.nextInt(3) + 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 25),
+                        new ItemCost(Items.EMERALD, 35),
                         book,
                         12, 30, 0.2f
                 );
             });
 
-            trades.get(5).add((trader, random, level) -> {
-                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-                addEnchantment(book, trader.registryAccess(), FROST_RESISTANCE, 2);
-                return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 28),
-                        book,
-                        12, 30, 0.2f
-                );
-            });
-
-            trades.get(5).add((trader, random, level) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 12),
+            trades.get(5).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 10),
                     new ItemStack(Items.PACKED_ICE, 16),
                     12, 30, 0.05f
+            ));
+
+            trades.get(5).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 6),
+                    new ItemStack(Items.BLUE_ICE, 4),
+                    8, 30, 0.05f
             ));
         }
     }
@@ -251,8 +241,6 @@ public class WinterEnchantmentsTrades {
             ItemEnchantments.Mutable enchantments = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
             enchantments.set(enchantmentHolder, level);
             book.set(DataComponents.STORED_ENCHANTMENTS, enchantments.toImmutable());
-        } catch (Exception e) {
-            WinterEnchantments.LOGGER.error("Failed to add enchantment to book", e);
-        }
+        } catch (Exception ignored) {}
     }
 }
