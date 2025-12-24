@@ -44,9 +44,9 @@ public class WinterEnchantmentsTrades {
             ResourceKey.create(Registries.ENCHANTMENT,
                     Identifier.fromNamespaceAndPath("minecraft", "snow_shoes"));
 
-    private static final ResourceKey<Enchantment> SNOW_DRIFT =
+    private static final ResourceKey<Enchantment> SNOWDRIFT =
             ResourceKey.create(Registries.ENCHANTMENT,
-                    Identifier.fromNamespaceAndPath("minecraft", "snow_drift"));
+                    Identifier.fromNamespaceAndPath("minecraft", "snowdrift"));
 
     private static final ResourceKey<Enchantment> SNOW_CUSHION =
             ResourceKey.create(Registries.ENCHANTMENT,
@@ -138,7 +138,7 @@ public class WinterEnchantmentsTrades {
 
             trades.get(3).add((trader, random, level) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-                addEnchantment(book, trader.registryAccess(), SNOW_DRIFT, 2);
+                addEnchantment(book, trader.registryAccess(), SNOWDRIFT, 2);
                 return new MerchantOffer(
                         new ItemCost(Items.EMERALD, 12),
                         book,
