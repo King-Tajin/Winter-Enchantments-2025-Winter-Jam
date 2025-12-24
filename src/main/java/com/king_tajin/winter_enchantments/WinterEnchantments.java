@@ -21,6 +21,8 @@ public class WinterEnchantments {
         WinterEnchantmentsVillagers.VILLAGER_PROFESSIONS.register(modEventBus);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onLevelTick);
+        NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onChunkUnload);
+        NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onWorldUnload);
         NeoForge.EVENT_BUS.addListener(SnowRunnerEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(FrostResistanceEnchantmentHandler::onEntityTick);
         NeoForge.EVENT_BUS.addListener(FrostbiteEnchantmentHandler::onEntityDamage);
@@ -31,5 +33,4 @@ public class WinterEnchantments {
         NeoForge.EVENT_BUS.addListener(FrozenStabilityEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(SnowCushionEnchantmentHandler::onLivingFall);
     }
-
 }
