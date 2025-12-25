@@ -89,6 +89,15 @@ public class FrostTrapEnchantmentHandler {
                         1.5f
                 );
 
+                serverLevel.playSound(
+                        null,
+                        shooter.blockPosition(),
+                        SoundEvents.PLAYER_HURT_FREEZE,
+                        SoundSource.PLAYERS,
+                        0.5f,
+                        1.8f
+                );
+
                 for (int i = 6; i < 20; i++) {
                     Vec3 particlePos = shooterPos.add(direction.scale(i * 0.5));
                     serverLevel.sendParticles(
@@ -99,6 +108,22 @@ public class FrostTrapEnchantmentHandler {
                             1,
                             0, 0, 0,
                             0
+                    );
+                }
+
+                for (int i = 1; i < 12; i++) {
+                    double offsetX = (shooter.getRandom().nextDouble() - 0.5) * 1.5;
+                    double offsetY = (shooter.getRandom().nextDouble() - 0.5) * 1.5;
+                    double offsetZ = (shooter.getRandom().nextDouble() - 0.5) * 1.5;
+
+                    serverLevel.sendParticles(
+                            ParticleTypes.SNOWFLAKE,
+                            shooterPos.x + offsetX,
+                            shooterPos.y + offsetY,
+                            shooterPos.z + offsetZ,
+                            1,
+                            0, 0.05, 0,
+                            0.05
                     );
                 }
 
