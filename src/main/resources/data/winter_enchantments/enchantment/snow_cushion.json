@@ -18,6 +18,6 @@
     "feet"
   ],
   "primary_items": "#minecraft:enchantable/foot_armor",
-  "exclusive_set": ["winter_enchantments:snow_drift", "minecraft:feather_falling"],
+  "exclusive_set": ["winter_enchantments:snowdrift", "minecraft:feather_falling"],
   "effects": {}
 }
