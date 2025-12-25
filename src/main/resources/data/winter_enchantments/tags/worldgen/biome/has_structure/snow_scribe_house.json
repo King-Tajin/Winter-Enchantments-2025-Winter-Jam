@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:is_snowy"
+    "minecraft:snowy_plains",
+    "minecraft:snowy_taiga"
   ]
 }
