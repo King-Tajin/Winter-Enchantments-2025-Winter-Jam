@@ -3,7 +3,7 @@
     "translate": "enchantment.winter_enchantments.frost_trap"
   },
   "supported_items": "#minecraft:enchantable/bow",
-  "weight": 1,
+  "weight": 2,
   "max_level": 1,
   "min_cost": {
     "base": 20,
@@ -18,5 +18,6 @@
     "mainhand"
   ],
   "primary_items": "#minecraft:enchantable/bow",
+  "exclusive_set": ["minecraft:infinity", "minecraft:mending"],
   "effects": {}
 }
