@@ -1,6 +1,6 @@
 {
   "description": {
-    "translate": "enchantment.yourmodid.snow_cushion"
+    "translate": "enchantment.winter_enchantments.snow_cushion"
   },
   "supported_items": "#minecraft:enchantable/foot_armor",
   "weight": 4,
