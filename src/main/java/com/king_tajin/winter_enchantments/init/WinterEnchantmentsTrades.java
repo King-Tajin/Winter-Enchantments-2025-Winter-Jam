@@ -20,6 +20,10 @@ public class WinterEnchantmentsTrades {
             ResourceKey.create(Registries.ENCHANTMENT,
                     Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "frost_resistance"));
 
+    private static final ResourceKey<Enchantment> FROST_TRAP =
+            ResourceKey.create(Registries.ENCHANTMENT,
+                    Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "frost_trap"));
+
     private static final ResourceKey<Enchantment> SNOW_RUNNER =
             ResourceKey.create(Registries.ENCHANTMENT,
                     Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_runner"));
@@ -231,6 +235,17 @@ public class WinterEnchantmentsTrades {
             trades.get(5).add((net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity trader, net.minecraft.util.RandomSource rand) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, level.registryAccess(), SNOW_RUNNER, rand.nextInt(3) + 1);
+                return new MerchantOffer(
+                        new ItemCost(Items.EMERALD, 30),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
+                        book,
+                        5, 30, 0.2f
+                );
+            });
+
+            trades.get(5).add((trader, rand, level) -> {
+                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+                addEnchantment(book, trader.registryAccess(), FROST_TRAP, 1);
                 return new MerchantOffer(
                         new ItemCost(Items.EMERALD, 30),
                         java.util.Optional.of(new ItemCost(Items.BOOK)),
