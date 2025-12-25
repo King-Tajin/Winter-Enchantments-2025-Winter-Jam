@@ -1,7 +1,7 @@
 {
   "structures": [
     {
-      "structure": "winter_enchantments:snow_scribe_house",
+      "structure": "winter_enchantments:snow_scribe_basement",
       "weight": 1
     }
   ],
@@ -9,6 +9,6 @@
     "type": "minecraft:random_spread",
     "spacing": 20,
     "separation": 8,
-    "salt": 423416983
+    "salt": 127451789
   }
 }
