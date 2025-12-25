@@ -80,6 +80,12 @@ public class WinterEnchantmentsTrades {
                     16, 1, 0.05f
             ));
 
+            trades.get(1).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 3),
+                    new ItemStack(Items.CARVED_PUMPKIN, 1),
+                    12, 1, 0.05f
+            ));
+
             trades.get(2).add((trader, rand, level) -> new MerchantOffer(
                     new ItemCost(Items.EMERALD, 2),
                     new ItemStack(Items.ICE, 6),
@@ -102,9 +108,10 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, trader.registryAccess(), FROZEN_STABILITY, 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 8),
+                        new ItemCost(Items.EMERALD, 6),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
-                        12, 10, 0.2f
+                        5, 10, 0.2f
                 );
             });
 
@@ -112,9 +119,10 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, trader.registryAccess(), ICE_CLAWS, 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 10),
+                        new ItemCost(Items.EMERALD, 8),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
-                        12, 10, 0.2f
+                        5, 10, 0.2f
                 );
             });
 
@@ -134,9 +142,10 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, trader.registryAccess(), SNOW_SHOES, 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 10),
+                        new ItemCost(Items.EMERALD, 8),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
-                        12, 10, 0.2f
+                        5, 10, 0.2f
                 );
             });
 
@@ -150,11 +159,18 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, trader.registryAccess(), SNOW_CUSHION, 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 10),
+                        new ItemCost(Items.EMERALD, 8),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
-                        12, 10, 0.2f
+                        5, 10, 0.2f
                 );
             });
+
+            trades.get(4).add((trader, rand, level) -> new MerchantOffer(
+                    new ItemCost(Items.EMERALD, 8),
+                    new ItemStack(Items.NAME_TAG, 1),
+                    12, 10, 0.05f
+            ));
 
             trades.get(4).add((trader, rand, level) -> new MerchantOffer(
                     new ItemCost(Items.EMERALD, 6),
@@ -166,9 +182,10 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, level.registryAccess(), FROST_RESISTANCE, rand.nextInt(3) + 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 18),
+                        new ItemCost(Items.EMERALD, 15),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
-                        12, 15, 0.2f
+                        5, 15, 0.2f
                 );
             });
 
@@ -176,9 +193,10 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, level.registryAccess(), FROST_WALKER, rand.nextInt(2) + 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 22),
+                        new ItemCost(Items.EMERALD, 18),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
-                        12, 15, 0.2f
+                        5, 15, 0.2f
                 );
             });
 
@@ -192,9 +210,10 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, level.registryAccess(), FROSTBITE, rand.nextInt(3) + 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 24),
+                        new ItemCost(Items.EMERALD, 20),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
-                        12, 30, 0.2f
+                        5, 30, 0.2f
                 );
             });
 
@@ -202,9 +221,10 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, level.registryAccess(), SNOWDRIFT, rand.nextInt(3) + 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 32),
+                        new ItemCost(Items.EMERALD, 28),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
-                        12, 30, 0.2f
+                        5, 30, 0.2f
                 );
             });
 
@@ -212,9 +232,10 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, level.registryAccess(), SNOW_RUNNER, rand.nextInt(3) + 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 35),
+                        new ItemCost(Items.EMERALD, 30),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
-                        12, 30, 0.2f
+                        5, 30, 0.2f
                 );
             });
 
