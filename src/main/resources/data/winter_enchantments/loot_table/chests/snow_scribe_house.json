@@ -144,6 +144,20 @@
               "add": false
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_enchantments",
+              "enchantments": {
+                "winter_enchantments:snow_plow": 1
+              },
+              "add": false
+            }
+          ]
         }
       ]
     },

@@ -56,6 +56,10 @@ public class WinterEnchantmentsTrades {
             ResourceKey.create(Registries.ENCHANTMENT,
                     Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_cushion"));
 
+    private static final ResourceKey<Enchantment> SNOW_PLOW =
+            ResourceKey.create(Registries.ENCHANTMENT,
+                    Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_plow"));
+
     public static void onVillagerTrades(VillagerTradesEvent event) {
         if (event.getType().equals(WinterEnchantmentsVillagers.SNOW_SCRIBE.getKey())) {
             var trades = event.getTrades();
@@ -130,6 +134,17 @@ public class WinterEnchantmentsTrades {
                 );
             });
 
+            trades.get(2).add((trader, rand, level) -> {
+                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+                addEnchantment(book, trader.registryAccess(), SNOW_PLOW, 1);
+                return new MerchantOffer(
+                        new ItemCost(Items.EMERALD, 10),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
+                        book,
+                        5, 10, 0.2f
+                );
+            });
+
             trades.get(3).add((trader, rand, level) -> new MerchantOffer(
                     new ItemCost(Items.EMERALD, 3),
                     new ItemStack(Items.PACKED_ICE, 4),
@@ -146,7 +161,7 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, trader.registryAccess(), SNOW_SHOES, 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 8),
+                        new ItemCost(Items.EMERALD, 7),
                         java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
                         5, 10, 0.2f
@@ -163,7 +178,7 @@ public class WinterEnchantmentsTrades {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, trader.registryAccess(), SNOW_CUSHION, 1);
                 return new MerchantOffer(
-                        new ItemCost(Items.EMERALD, 8),
+                        new ItemCost(Items.EMERALD, 10),
                         java.util.Optional.of(new ItemCost(Items.BOOK)),
                         book,
                         5, 10, 0.2f
