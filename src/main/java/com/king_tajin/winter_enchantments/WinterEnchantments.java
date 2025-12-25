@@ -6,15 +6,10 @@ import com.king_tajin.winter_enchantments.init.WinterEnchantmentsVillagers;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Mod(WinterEnchantments.MODID)
 public class WinterEnchantments {
     public static final String MODID = "winter_enchantments";
-
-    public static final Logger LOGGER =
-            LogManager.getLogger(MODID);
 
     public WinterEnchantments(IEventBus modEventBus) {
         WinterEnchantmentsVillagers.POI_TYPES.register(modEventBus);
@@ -32,5 +27,10 @@ public class WinterEnchantments {
         NeoForge.EVENT_BUS.addListener(FrozenStabilityEnchantmentHandler::onKnockback);
         NeoForge.EVENT_BUS.addListener(FrozenStabilityEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(SnowCushionEnchantmentHandler::onLivingFall);
+        NeoForge.EVENT_BUS.addListener(FrostTrapEnchantmentHandler::onArrowShoot);
+        NeoForge.EVENT_BUS.addListener(FrostTrapEnchantmentHandler::onProjectileHit);
+        NeoForge.EVENT_BUS.addListener(FrostTrapEnchantmentHandler::onLevelTick);
+        NeoForge.EVENT_BUS.addListener(FrostTrapEnchantmentHandler::onChunkUnload);
+        NeoForge.EVENT_BUS.addListener(FrostTrapEnchantmentHandler::onWorldUnload);
     }
 }
