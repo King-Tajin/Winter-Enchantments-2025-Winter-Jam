@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
@@ -35,6 +36,33 @@ public class SnowPlowEnchantmentHandler {
             this.pos = pos;
             this.layers = layers;
         }
+    }
+
+    public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
+        Player player = event.getEntity();
+        ItemStack tool = player.getMainHandItem();
+
+        if (tool.isEmpty()) {
+            return;
+        }
+
+        try {
+            Holder<Enchantment> holder = player.level().registryAccess()
+                    .lookupOrThrow(Registries.ENCHANTMENT)
+                    .getOrThrow(SNOW_PLOW);
+
+            int snowPlowLevel = tool.getEnchantmentLevel(holder);
+            if (snowPlowLevel <= 0) {
+                return;
+            }
+            BlockState state = event.getState();
+
+            if (state.is(Blocks.SNOW) || state.is(Blocks.SNOW_BLOCK)) {
+                float slownessFactor = 10.0f;
+                float newSpeed = event.getOriginalSpeed() / slownessFactor;
+                event.setNewSpeed(newSpeed);
+            }
+        } catch (Exception ignored) {}
     }
 
     public static void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
