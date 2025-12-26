@@ -5,10 +5,12 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.HashMap;
@@ -68,5 +70,40 @@ public class FrostResistanceEnchantmentHandler {
         }
 
         tickCounters.put(entityId, counter);
+    }
+
+    public static void onLivingDamage(LivingDamageEvent.Pre event) {
+        LivingEntity entity = event.getEntity();
+
+        if (entity.level().isClientSide()) {
+            return;
+        }
+
+        if (!event.getSource().is(DamageTypes.FREEZE)) {
+            return;
+        }
+
+        ItemStack chestplate = entity.getItemBySlot(EquipmentSlot.CHEST);
+        if (chestplate.isEmpty()) {
+            return;
+        }
+
+        try {
+            Holder<Enchantment> enchantmentHolder = entity.level().registryAccess()
+                    .lookupOrThrow(Registries.ENCHANTMENT)
+                    .getOrThrow(FROST_RESISTANCE);
+
+            int frostLevel = chestplate.getEnchantmentLevel(enchantmentHolder);
+
+            if (frostLevel <= 0) {
+                return;
+            }
+
+            double negateChance = frostLevel * 0.25;
+
+            if (entity.level().getRandom().nextDouble() < negateChance) {
+                event.getContainer().setNewDamage(0);
+            }
+        } catch (Exception ignored) {}
     }
 }
