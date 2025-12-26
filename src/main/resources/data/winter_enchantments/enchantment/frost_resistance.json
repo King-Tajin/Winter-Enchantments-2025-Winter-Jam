@@ -18,5 +18,6 @@
     "chest"
   ],
   "primary_items": "#minecraft:enchantable/chest_armor",
+  "exclusive_set": ["minecraft:protection"],
   "effects": {}
 }

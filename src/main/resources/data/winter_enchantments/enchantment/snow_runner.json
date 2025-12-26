@@ -18,5 +18,6 @@
     "feet"
   ],
   "primary_items": "#minecraft:enchantable/foot_armor",
+  "exclusive_set": ["minecraft:soul_speed"],
   "effects": {}
 }

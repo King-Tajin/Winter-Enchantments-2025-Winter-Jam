@@ -20,6 +20,7 @@ public class WinterEnchantments {
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onWorldUnload);
         NeoForge.EVENT_BUS.addListener(SnowRunnerEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(FrostResistanceEnchantmentHandler::onEntityTick);
+        NeoForge.EVENT_BUS.addListener(FrostResistanceEnchantmentHandler::onLivingDamage);
         NeoForge.EVENT_BUS.addListener(FrostbiteEnchantmentHandler::onEntityDamage);
         NeoForge.EVENT_BUS.addListener(FrostbiteEnchantmentHandler::onEntityTick);
         NeoForge.EVENT_BUS.addListener(FrostbiteEnchantmentHandler::onEntityDeath);
