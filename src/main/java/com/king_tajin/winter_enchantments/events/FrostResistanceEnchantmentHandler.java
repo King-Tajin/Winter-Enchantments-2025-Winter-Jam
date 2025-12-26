@@ -99,7 +99,7 @@ public class FrostResistanceEnchantmentHandler {
                 return;
             }
 
-            double negateChance = frostLevel * 0.25;
+            double negateChance = frostLevel * 0.15;
 
             if (entity.level().getRandom().nextDouble() < negateChance) {
                 event.getContainer().setNewDamage(0);

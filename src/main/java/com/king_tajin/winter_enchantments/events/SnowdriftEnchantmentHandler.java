@@ -2,6 +2,9 @@ package com.king_tajin.winter_enchantments.events;
 
 import com.king_tajin.winter_enchantments.WinterEnchantments;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -56,6 +59,7 @@ public class SnowdriftEnchantmentHandler {
             return;
         }
 
+        boolean isNether = level.dimension() == Level.NETHER;
         int radius = enchantmentLevel == 1 ? 0 : enchantmentLevel - 1;
         BlockPos centerPos = player.blockPosition();
         long currentTime = level.getGameTime();
@@ -69,7 +73,29 @@ public class SnowdriftEnchantmentHandler {
                     BlockState currentState = level.getBlockState(pos);
 
                     if (canPlaceSnow(level, pos, currentState, belowState)) {
-                        if (currentState.isAir()) {
+                        if (isNether) {
+                            if (level instanceof ServerLevel serverLevel && random.nextInt(75) == 0) {
+                                serverLevel.sendParticles(
+                                        ParticleTypes.SMOKE,
+                                        pos.getX() + 0.5,
+                                        pos.getY() + 0.5,
+                                        pos.getZ() + 0.5,
+                                        8,
+                                        0.5,
+                                        0.25,
+                                        0.5,
+                                        0.0
+                                );
+                                serverLevel.playSound(
+                                        null,
+                                        pos,
+                                        SoundEvents.FIRE_EXTINGUISH,
+                                        SoundSource.BLOCKS,
+                                        0.5f,
+                                        2.6f + (random.nextFloat() - random.nextFloat()) * 0.8f
+                                );
+                            }
+                        } else if (currentState.isAir()) {
                             level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 3);
                             boolean isColdBiome = level.getBiome(pos).value().coldEnoughToSnow(pos, level.getSeaLevel());
                             if (!isColdBiome) {
