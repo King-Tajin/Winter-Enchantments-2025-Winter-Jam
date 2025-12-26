@@ -34,5 +34,6 @@ public class WinterEnchantments {
         NeoForge.EVENT_BUS.addListener(FrostTrapEnchantmentHandler::onWorldUnload);
         NeoForge.EVENT_BUS.addListener(SnowPlowEnchantmentHandler::onLeftClickBlock);
         NeoForge.EVENT_BUS.addListener(SnowPlowEnchantmentHandler::onBlockBreak);
+        NeoForge.EVENT_BUS.addListener(SnowPlowEnchantmentHandler::onBreakSpeed);
     }
 }
