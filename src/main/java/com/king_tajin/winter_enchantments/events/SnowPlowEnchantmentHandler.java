@@ -8,7 +8,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -18,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
-import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +30,10 @@ public class SnowPlowEnchantmentHandler {
     private static class SnowBlockData {
         BlockPos pos;
         int layers;
-        boolean isSnowBlock;
 
-        SnowBlockData(BlockPos pos, int layers, boolean isSnowBlock) {
+        SnowBlockData(BlockPos pos, int layers) {
             this.pos = pos;
             this.layers = layers;
-            this.isSnowBlock = isSnowBlock;
         }
     }
 
@@ -108,9 +104,9 @@ public class SnowPlowEnchantmentHandler {
 
                                     if (checkState.is(Blocks.SNOW)) {
                                         int layers = checkState.getValue(SnowLayerBlock.LAYERS);
-                                        snowBlocks.add(new SnowBlockData(checkPos.immutable(), layers, false));
+                                        snowBlocks.add(new SnowBlockData(checkPos.immutable(), layers));
                                     } else if (checkState.is(Blocks.SNOW_BLOCK)) {
-                                        snowBlocks.add(new SnowBlockData(checkPos.immutable(), 8, false));
+                                        snowBlocks.add(new SnowBlockData(checkPos.immutable(), 8));
                                     }
                                 }
                             }
@@ -140,21 +136,22 @@ public class SnowPlowEnchantmentHandler {
                                 (int)Math.round(totalOffset.z)
                         );
 
-                        var placed = false;
+                        int remainingLayers = snowData.layers;
 
-                        placed = tryPlaceSnowLayers(serverLevel, targetPos, snowData.layers);
+                        remainingLayers = tryPlaceSnowLayers(serverLevel, targetPos, remainingLayers);
 
-                        if (!placed) {
-                            BlockPos closestPos = findClosestValidPosition(serverLevel, targetPos, snowData);
-                            if (closestPos != null) {
-                                placed = tryPlaceSnowLayers(serverLevel, closestPos, snowData.layers);
+                        if (remainingLayers > 0) {
+                            BlockPos validPos = findClosestValidPosition(serverLevel, targetPos, remainingLayers);
+                            if (validPos != null) {
+                                remainingLayers = tryPlaceSnowLayers(serverLevel, validPos, remainingLayers);
                             }
                         }
 
-                        if (!placed) {
-                            ItemEntity snowItem = getItemEntity(serverLevel, snowData, targetPos);
-                            serverLevel.addFreshEntity(snowItem);
-                        } else {
+                        if (remainingLayers > 0) {
+                            remainingLayers = tryPlaceSnowLayers(serverLevel, snowData.pos, remainingLayers);
+                        }
+
+                        if (remainingLayers < snowData.layers) {
                             movedBlocks++;
                         }
                     }
@@ -168,21 +165,7 @@ public class SnowPlowEnchantmentHandler {
         } catch (Exception ignored) {}
     }
 
-    private static @NonNull ItemEntity getItemEntity(ServerLevel serverLevel, SnowBlockData snowData, BlockPos targetPos) {
-        ItemStack dropItem = new ItemStack(Blocks.SNOW, snowData.layers);
-
-        ItemEntity snowItem = new ItemEntity(
-                serverLevel,
-                targetPos.getX() + 0.5,
-                targetPos.getY() + 0.5,
-                targetPos.getZ() + 0.5,
-                dropItem
-        );
-        snowItem.setDefaultPickUpDelay();
-        return snowItem;
-    }
-
-    private static BlockPos findClosestValidPosition(ServerLevel level, BlockPos center, SnowBlockData snowData) {
+    private static BlockPos findClosestValidPosition(ServerLevel level, BlockPos center, int layersNeeded) {
         BlockPos closestPos = null;
         double closestDistance = Double.MAX_VALUE;
 
@@ -193,15 +176,14 @@ public class SnowPlowEnchantmentHandler {
                     double distance = center.distSqr(checkPos);
 
                     if (distance < closestDistance) {
-                        boolean canPlace = false;
-
                         BlockState currentState = level.getBlockState(checkPos);
-
                         BlockState belowState = level.getBlockState(checkPos.below());
+
+                        boolean canPlace = false;
 
                         if (currentState.is(Blocks.SNOW)) {
                             int currentLayers = currentState.getValue(SnowLayerBlock.LAYERS);
-                            if (currentLayers + snowData.layers <= 8) {
+                            if (currentLayers + layersNeeded <= 8) {
                                 canPlace = true;
                             }
                         } else if (currentState.isAir() && (belowState.isSolidRender() || belowState.is(Blocks.SNOW_BLOCK))) {
@@ -220,11 +202,12 @@ public class SnowPlowEnchantmentHandler {
         return closestPos;
     }
 
-    private static boolean tryPlaceSnowLayers(ServerLevel level, BlockPos pos, int layersToAdd) {
+    private static int tryPlaceSnowLayers(ServerLevel level, BlockPos pos, int layersToAdd) {
         for (int yOffset = 0; yOffset >= -1; yOffset--) {
             BlockPos checkPos = pos.offset(0, yOffset, 0);
-            if (tryPlaceSnowLayersAtExactPos(level, checkPos, layersToAdd)) {
-                return true;
+            int remaining = tryPlaceSnowLayersAtExactPos(level, checkPos, layersToAdd);
+            if (remaining < layersToAdd) {
+                return remaining;
             }
         }
 
@@ -232,25 +215,27 @@ public class SnowPlowEnchantmentHandler {
         return tryPlaceSnowLayersAtExactPos(level, checkPosUp, layersToAdd);
     }
 
-    private static boolean tryPlaceSnowLayersAtExactPos(ServerLevel level, BlockPos pos, int layersToAdd) {
+    private static int tryPlaceSnowLayersAtExactPos(ServerLevel level, BlockPos pos, int layersToAdd) {
         BlockState currentState = level.getBlockState(pos);
         BlockState belowState = level.getBlockState(pos.below());
 
         if (currentState.is(Blocks.SNOW)) {
             int currentLayers = currentState.getValue(SnowLayerBlock.LAYERS);
-            int newLayers = Math.min(currentLayers + layersToAdd, 8);
+            int availableSpace = 8 - currentLayers;
+            int layersToPlace = Math.min(layersToAdd, availableSpace);
 
-            if (newLayers > currentLayers) {
+            if (layersToPlace > 0) {
+                int newLayers = currentLayers + layersToPlace;
                 level.setBlock(pos, currentState.setValue(SnowLayerBlock.LAYERS, newLayers), 3);
-                return true;
+                return layersToAdd - layersToPlace;
             }
-            return false;
+            return layersToAdd;
         } else if (currentState.isAir() && (belowState.isSolidRender() || belowState.is(Blocks.SNOW_BLOCK))) {
-            int newLayers = Math.min(layersToAdd, 8);
-            level.setBlock(pos, Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, newLayers), 3);
-            return true;
+            int layersToPlace = Math.min(layersToAdd, 8);
+            level.setBlock(pos, Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, layersToPlace), 3);
+            return layersToAdd - layersToPlace;
         }
 
-        return false;
+        return layersToAdd;
     }
 }
