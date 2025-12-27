@@ -13,13 +13,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-import java.util.List;
+import java.util.Set;
 
 public class SnowRunnerEnchantmentHandler {
     private static final ResourceKey<Enchantment> SNOW_RUNNER = ResourceKey.create(
@@ -29,7 +29,7 @@ public class SnowRunnerEnchantmentHandler {
 
     private static final Identifier SPEED_MODIFIER_ID = Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_runner_speed");
 
-    private static final List<Block> SPEED_BLOCKS = List.of(
+    private static final Set<Block> SPEED_BLOCKS = Set.of(
             Blocks.SNOW,
             Blocks.SNOW_BLOCK,
             Blocks.POWDER_SNOW,
@@ -61,7 +61,7 @@ public class SnowRunnerEnchantmentHandler {
                         .lookupOrThrow(Registries.ENCHANTMENT)
                         .getOrThrow(SNOW_RUNNER);
 
-                int level = EnchantmentHelper.getEnchantmentLevel(holder, player);
+                int level = boots.getEnchantmentLevel(holder);
 
                 if (level > 0) {
                     BlockPos pos = player.blockPosition();
@@ -73,11 +73,8 @@ public class SnowRunnerEnchantmentHandler {
 
                         shouldHaveSpeed = true;
 
-                        AttributeModifier existingModifier = movementSpeed.getModifier(SPEED_MODIFIER_ID);
-                        double speedBonus = getSpeedForLevel(level);
-
-                        if (existingModifier == null || existingModifier.amount() != speedBonus) {
-                            movementSpeed.removeModifier(SPEED_MODIFIER_ID);
+                        if (!hasModifier) {
+                            double speedBonus = getSpeedForLevel(level);
                             movementSpeed.addTransientModifier(new AttributeModifier(
                                     SPEED_MODIFIER_ID,
                                     speedBonus,
@@ -90,6 +87,14 @@ public class SnowRunnerEnchantmentHandler {
         }
 
         if (!shouldHaveSpeed && hasModifier) {
+            movementSpeed.removeModifier(SPEED_MODIFIER_ID);
+        }
+    }
+
+    public static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+        Player player = event.getEntity();
+        AttributeInstance movementSpeed = player.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (movementSpeed != null) {
             movementSpeed.removeModifier(SPEED_MODIFIER_ID);
         }
     }

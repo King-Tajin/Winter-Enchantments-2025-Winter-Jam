@@ -9,9 +9,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.HashMap;
@@ -29,9 +30,9 @@ public class FrostbiteEnchantmentHandler {
             Registries.ENCHANTMENT,
             Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "frost_resistance")
     );
-    
+
     private static final Map<UUID, Integer> freezingDuration = new HashMap<>();
-    
+
     public static void onEntityDamage(LivingDamageEvent.Pre event) {
         if (!(event.getSource().getEntity() instanceof LivingEntity attacker)) {
             return;
@@ -51,14 +52,13 @@ public class FrostbiteEnchantmentHandler {
                     .lookupOrThrow(Registries.ENCHANTMENT)
                     .getOrThrow(FROSTBITE);
 
-            int level = EnchantmentHelper.getEnchantmentLevel(holder, attacker);
+            int level = weapon.getEnchantmentLevel(holder);
 
             if (level > 0) {
                 LivingEntity target = event.getEntity();
                 UUID targetId = target.getUUID();
                 int duration = 20 + (level * 50);
-                int currentDuration = freezingDuration.getOrDefault(targetId, 0);
-                freezingDuration.put(targetId, currentDuration + duration);
+                freezingDuration.put(targetId, duration);
             }
         } catch (Exception ignored) {}
     }
@@ -120,5 +120,17 @@ public class FrostbiteEnchantmentHandler {
 
     public static void onEntityDeath(LivingDeathEvent event) {
         freezingDuration.remove(event.getEntity().getUUID());
+    }
+
+    public static void onEntityRemoved(EntityLeaveLevelEvent event) {
+        if (event.getEntity() instanceof LivingEntity) {
+            freezingDuration.remove(event.getEntity().getUUID());
+        }
+    }
+
+    public static void onWorldUnload(LevelEvent.Unload event) {
+        if (!event.getLevel().isClientSide()) {
+            freezingDuration.clear();
+        }
     }
 }
