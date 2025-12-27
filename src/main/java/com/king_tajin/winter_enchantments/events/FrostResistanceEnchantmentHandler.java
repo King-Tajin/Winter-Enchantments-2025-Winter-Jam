@@ -12,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.HashMap;
@@ -112,12 +111,6 @@ public class FrostResistanceEnchantmentHandler {
     public static void onEntityRemoved(EntityLeaveLevelEvent event) {
         if (event.getEntity() instanceof LivingEntity) {
             tickCounters.remove(event.getEntity().getUUID());
-        }
-    }
-
-    public static void onWorldUnload(LevelEvent.Unload event) {
-        if (!event.getLevel().isClientSide()) {
-            tickCounters.clear();
         }
     }
 }
