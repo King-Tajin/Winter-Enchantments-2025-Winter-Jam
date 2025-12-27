@@ -60,6 +60,10 @@ public class WinterEnchantmentsTrades {
             ResourceKey.create(Registries.ENCHANTMENT,
                     Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_plow"));
 
+    private static final ResourceKey<Enchantment> SNOW_HOP =
+            ResourceKey.create(Registries.ENCHANTMENT,
+                    Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_hop"));
+
     public static void onVillagerTrades(VillagerTradesEvent event) {
         if (event.getType().equals(WinterEnchantmentsVillagers.SNOW_SCRIBE.getKey())) {
             var trades = event.getTrades();
@@ -200,6 +204,17 @@ public class WinterEnchantmentsTrades {
             trades.get(4).add((net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity trader, net.minecraft.util.RandomSource rand) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, level.registryAccess(), FROST_RESISTANCE, rand.nextInt(3) + 1);
+                return new MerchantOffer(
+                        new ItemCost(Items.EMERALD, 15),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
+                        book,
+                        5, 15, 0.2f
+                );
+            });
+
+            trades.get(4).add((net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity trader, net.minecraft.util.RandomSource rand) -> {
+                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+                addEnchantment(book, level.registryAccess(), SNOW_HOP, rand.nextInt(3) + 1);
                 return new MerchantOffer(
                         new ItemCost(Items.EMERALD, 15),
                         java.util.Optional.of(new ItemCost(Items.BOOK)),
