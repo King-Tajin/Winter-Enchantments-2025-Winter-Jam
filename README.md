@@ -3,6 +3,9 @@
 Winterjam: https://winterjam.tophatcat.dev/
 - 2026-01-07 00:00 UTC -- DEADLINE
 
+Ideas:
+- frosted wings (needs new projectile)
+
 Credits:
 - https://www.planetminecraft.com/banner/snow-covered-tree-optifine-cape-compatible/
 - https://www.planetminecraft.com/banner/cool-snow-banner/
