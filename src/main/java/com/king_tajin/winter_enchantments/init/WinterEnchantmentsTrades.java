@@ -64,6 +64,10 @@ public class WinterEnchantmentsTrades {
             ResourceKey.create(Registries.ENCHANTMENT,
                     Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_hop"));
 
+    private static final ResourceKey<Enchantment> FROSTED_WINGS =
+            ResourceKey.create(Registries.ENCHANTMENT,
+                    Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "frosted_wings"));
+
     public static void onVillagerTrades(VillagerTradesEvent event) {
         if (event.getType().equals(WinterEnchantmentsVillagers.SNOW_SCRIBE.getKey())) {
             var trades = event.getTrades();
@@ -276,6 +280,17 @@ public class WinterEnchantmentsTrades {
             trades.get(5).add((trader, rand, level) -> {
                 ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
                 addEnchantment(book, trader.registryAccess(), FROST_TRAP, 1);
+                return new MerchantOffer(
+                        new ItemCost(Items.EMERALD, 30),
+                        java.util.Optional.of(new ItemCost(Items.BOOK)),
+                        book,
+                        5, 30, 0.2f
+                );
+            });
+
+            trades.get(5).add((trader, rand, level) -> {
+                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+                addEnchantment(book, trader.registryAccess(), FROSTED_WINGS, 1);
                 return new MerchantOffer(
                         new ItemCost(Items.EMERALD, 30),
                         java.util.Optional.of(new ItemCost(Items.BOOK)),
