@@ -13,6 +13,7 @@ public class WinterEnchantments {
     public WinterEnchantments(IEventBus modEventBus) {
         WinterEnchantmentsVillagers.POI_TYPES.register(modEventBus);
         WinterEnchantmentsVillagers.VILLAGER_PROFESSIONS.register(modEventBus);
+        FrostedWingsEnchantmentHandler.ATTACHMENT_TYPES.register(modEventBus);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onLevelTick);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onChunkUnload);
@@ -40,5 +41,9 @@ public class WinterEnchantments {
         NeoForge.EVENT_BUS.addListener(SnowPlowEnchantmentHandler::onBreakSpeed);
         NeoForge.EVENT_BUS.addListener(SnowHopEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(SnowHopEnchantmentHandler::onPlayerLogout);
+        NeoForge.EVENT_BUS.addListener(FrostedWingsEnchantmentHandler::onFireworkSpawn);
+        NeoForge.EVENT_BUS.addListener(FrostedWingsEnchantmentHandler::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(FrostedWingsEnchantmentHandler::onEntityRemoved);
+        NeoForge.EVENT_BUS.addListener(FrostedWingsEnchantmentHandler::onPlayerLoggedOut);
     }
 }
