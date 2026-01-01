@@ -5,7 +5,7 @@ ___
 > Curseforge : https://www.curseforge.com/minecraft/mc-mods/winter-enchantments
 ___
 Winterjam: https://winterjam.tophatcat.dev/
-- 2026-01-07 00:00 UTC -- DEADLINE
+- <time datetime="2026-01-07T00:00:00Z">January 7, 2026 — 00:00 UTC</time> -- DEADLINE
 
 Plans:
 - open to suggestions but will just bugfix for now
