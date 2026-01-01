@@ -1,0 +1,20 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "type": "tip"
+      },
+      "apply": {
+        "model": "winter_enchantments:block/icicle_tip"
+      }
+    },
+    {
+      "when": {
+        "type": "base"
+      },
+      "apply": {
+        "model": "winter_enchantments:block/icicle_base"
+      }
+    }
+  ]
+}
