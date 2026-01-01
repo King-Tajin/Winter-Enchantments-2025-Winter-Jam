@@ -20,6 +20,9 @@ Can be obtained through trading, structure loot, and the enchanting table.
 - **Frostbite** (melee) – Applies a frost effect to enemies.  
   Level 1-3.
 
+- **Frosted Wings** (elytra) – Boosting with fireworks drops icicles that damage any mobs or players below.  
+  Level 1.
+
 - **Frozen Stability** (leggings) – Prevents knockback while crouching.  
   Level 1.
 
