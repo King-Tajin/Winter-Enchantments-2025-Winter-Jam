@@ -2,6 +2,7 @@ package com.king_tajin.winter_enchantments.events;
 
 import com.king_tajin.winter_enchantments.WinterEnchantments;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
+import net.neoforged.neoforge.event.level.ExplosionKnockbackEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 public class FrozenStabilityEnchantmentHandler {
@@ -26,26 +28,44 @@ public class FrozenStabilityEnchantmentHandler {
             return;
         }
 
-        if (!player.isCrouching()) {
+        if (shouldCancelKnockback(player)) {
+            event.setCanceled(true);
+        }
+    }
+
+    public static void onExplosionKnockback(ExplosionKnockbackEvent event) {
+        if (!(event.getAffectedEntity() instanceof Player player)) {
             return;
+        }
+
+        if (shouldCancelKnockback(player)) {
+            event.setKnockbackVelocity(Vec3.ZERO);
+        }
+    }
+
+    private static boolean shouldCancelKnockback(Player player) {
+        if (!player.isCrouching()) {
+            return false;
         }
 
         ItemStack leggings = player.getItemBySlot(EquipmentSlot.LEGS);
         if (leggings.isEmpty()) {
-            return;
+            return false;
         }
 
+        return getEnchantmentLevel(player, leggings) > 0;
+    }
+
+    private static int getEnchantmentLevel(Player player, ItemStack item) {
         try {
             Holder<Enchantment> holder = player.level().registryAccess()
                     .lookupOrThrow(Registries.ENCHANTMENT)
                     .getOrThrow(FROZEN_STABILITY);
 
-            int level = leggings.getEnchantmentLevel(holder);
-
-            if (level > 0) {
-                event.setCanceled(true);
-            }
-        } catch (Exception ignored) {}
+            return item.getEnchantmentLevel(holder);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     public static void onPlayerTick(PlayerTickEvent.Post event) {
@@ -64,33 +84,23 @@ public class FrozenStabilityEnchantmentHandler {
             return;
         }
 
-        try {
-            Holder<Enchantment> holder = player.level().registryAccess()
-                    .lookupOrThrow(Registries.ENCHANTMENT)
-                    .getOrThrow(FROZEN_STABILITY);
+        int level = getEnchantmentLevel(player, leggings);
 
-            int level = leggings.getEnchantmentLevel(holder);
+        if (level > 0 && player.tickCount % 4 == 0) {
+            ServerLevel serverLevel = (ServerLevel) player.level();
+            Vec3 pos = player.position();
 
-            if (level > 0 && player.tickCount % 4 == 0) {
-                ServerLevel serverLevel = (ServerLevel) player.level();
-                Vec3 pos = player.position();
+            spawnParticle(serverLevel, pos, player, ParticleTypes.SNOWFLAKE);
 
-                spawnParticle(serverLevel, pos, player, ParticleTypes.SNOWFLAKE, 2);
-
-                if (player.getRandom().nextInt(3) == 0) {
-                    spawnParticle(serverLevel, pos, player, ParticleTypes.ASH, 1);
-                }
-
-                if (player.getRandom().nextInt(4) == 0) {
-                    spawnParticle(serverLevel, pos, player, ParticleTypes.ELECTRIC_SPARK, 1);
-                }
+            if (player.getRandom().nextInt(2) == 0) {
+                spawnParticle(serverLevel, pos, player, ParticleTypes.ELECTRIC_SPARK);
             }
-        } catch (Exception ignored) {}
+        }
     }
 
     private static void spawnParticle(ServerLevel level, Vec3 pos, Player player,
-                                      net.minecraft.core.particles.ParticleOptions particle, int count) {
-        for (int i = 0; i < count; i++) {
+                                      ParticleOptions particle) {
+        for (int i = 0; i < 2; i++) {
             double offsetX = (player.getRandom().nextDouble() - 0.5) * 1.2;
             double offsetY = 0.5 + player.getRandom().nextDouble();
             double offsetZ = (player.getRandom().nextDouble() - 0.5) * 1.2;

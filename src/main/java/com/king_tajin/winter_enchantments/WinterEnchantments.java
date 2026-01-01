@@ -31,6 +31,7 @@ public class WinterEnchantments {
         NeoForge.EVENT_BUS.addListener(WinterEnchantmentsTrades::onVillagerTrades);
         NeoForge.EVENT_BUS.addListener(FrozenStabilityEnchantmentHandler::onKnockback);
         NeoForge.EVENT_BUS.addListener(FrozenStabilityEnchantmentHandler::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(FrozenStabilityEnchantmentHandler::onExplosionKnockback);
         NeoForge.EVENT_BUS.addListener(SnowCushionEnchantmentHandler::onLivingFall);
         NeoForge.EVENT_BUS.addListener(FrostTrapEnchantmentHandler::onArrowShoot);
         NeoForge.EVENT_BUS.addListener(FrostTrapEnchantmentHandler::onProjectileHit);
@@ -46,5 +47,6 @@ public class WinterEnchantments {
         NeoForge.EVENT_BUS.addListener(FrostedWingsEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(FrostedWingsEnchantmentHandler::onEntityRemoved);
         NeoForge.EVENT_BUS.addListener(FrostedWingsEnchantmentHandler::onPlayerLoggedOut);
+        NeoForge.EVENT_BUS.addListener(FrostedWingsEnchantmentHandler::onServerTick);
     }
 }

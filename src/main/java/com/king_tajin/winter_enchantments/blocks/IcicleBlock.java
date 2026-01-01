@@ -109,7 +109,7 @@ public class IcicleBlock extends PointedDripstoneBlock {
             for (LivingEntity entity : nearbyEntities) {
                 double distance = entity.position().distanceTo(pos.getCenter());
                 if (distance <= radius) {
-                    float damage = (float) ((10.0 * (1.0 - distance / radius)) + 5);
+                    float damage = (float) ((12.0 * (1.0 - distance / radius)) + 3);
 
                     entity.hurtServer(serverLevel, createIcicleDamageSource(level, fallingBlock), damage);
 

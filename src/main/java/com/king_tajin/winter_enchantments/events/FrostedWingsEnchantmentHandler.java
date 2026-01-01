@@ -9,6 +9,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -29,6 +30,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -139,15 +141,18 @@ public class FrostedWingsEnchantmentHandler {
             duration--;
             player.setData(BOOST_DURATION, duration);
         }
+    }
 
-        if (player.level() instanceof ServerLevel serverLevel) {
-            spawnParticlesForTrackedIcicles(serverLevel);
+    public static void onServerTick(ServerTickEvent.Post event) {
+        MinecraftServer server = event.getServer();
 
-            cleanupCounter++;
-            if (cleanupCounter >= CLEANUP_INTERVAL) {
-                cleanupDeadIcicles(serverLevel);
-                cleanupCounter = 0;
+        cleanupCounter++;
+        if (cleanupCounter >= CLEANUP_INTERVAL) {
+            for (ServerLevel level : server.getAllLevels()) {
+                cleanupDeadIcicles(level);
+                spawnParticlesForTrackedIcicles(level);
             }
+            cleanupCounter = 0;
         }
     }
 
@@ -239,8 +244,17 @@ public class FrostedWingsEnchantmentHandler {
     }
 
     private static void spawnParticlesForTrackedIcicles(ServerLevel level) {
-        for (Map.Entry<Integer, Vec3> entry : trackedIcicles.entrySet()) {
+        Iterator<Map.Entry<Integer, Vec3>> iterator = trackedIcicles.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, Vec3> entry = iterator.next();
             Entity entity = level.getEntity(entry.getKey());
+
+            if (entity == null) {
+                iterator.remove();
+                continue;
+            }
+
             if (entity instanceof FallingBlockEntity fallingBlock) {
                 if (level.getRandom().nextInt(2) == 0) {
                     level.sendParticles(
@@ -269,7 +283,7 @@ public class FrostedWingsEnchantmentHandler {
                 }
 
                 if (fallingBlock.onGround()) {
-                    trackedIcicles.remove(entry.getKey());
+                    iterator.remove();
                     fallingBlock.discard();
                 }
             }
