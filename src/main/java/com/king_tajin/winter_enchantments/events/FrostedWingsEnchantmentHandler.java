@@ -1,6 +1,8 @@
 package com.king_tajin.winter_enchantments.events;
 
 import com.king_tajin.winter_enchantments.WinterEnchantments;
+import com.king_tajin.winter_enchantments.blocks.IcicleBlock;
+import com.king_tajin.winter_enchantments.init.WinterEnchantmentsBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -18,7 +20,6 @@ import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
@@ -42,7 +43,7 @@ public class FrostedWingsEnchantmentHandler {
             Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "frosted_wings")
     );
 
-    private static final Map<Integer, Vec3> trackedDripstones = new ConcurrentHashMap<>();
+    private static final Map<Integer, Vec3> trackedIcicles = new ConcurrentHashMap<>();
     private static final int DROP_DURATION = 60;
     private static final int CLEANUP_INTERVAL = 100;
     private static int cleanupCounter = 0;
@@ -76,7 +77,7 @@ public class FrostedWingsEnchantmentHandler {
 
         boolean hasBlockBelow = false;
         BlockPos playerPos = player.blockPosition();
-        for (int y = 1; y <= 4; y++) {
+        for (int y = 1; y <= 7; y++) {
             BlockState checkState = player.level().getBlockState(playerPos.below(y));
             if (!checkState.isAir()) {
                 hasBlockBelow = true;
@@ -104,7 +105,17 @@ public class FrostedWingsEnchantmentHandler {
                 player.setData(BOOST_DURATION, DROP_DURATION);
 
                 if (event.getLevel() instanceof ServerLevel serverLevel) {
-                    spawnParticleBurst(serverLevel, player);
+                    serverLevel.sendParticles(
+                            ParticleTypes.CLOUD,
+                            player.getX(),
+                            player.getY() - 1.5,
+                            player.getZ(),
+                            10,
+                            2,
+                            0,
+                            2,
+                            0.02
+                    );
                 }
             }
         } catch (Exception ignored) {
@@ -122,7 +133,7 @@ public class FrostedWingsEnchantmentHandler {
 
         if (duration > 0) {
             if (duration % 5 == 0) {
-                dropDripstone(player);
+                dropIcicle(player);
             }
 
             duration--;
@@ -130,11 +141,11 @@ public class FrostedWingsEnchantmentHandler {
         }
 
         if (player.level() instanceof ServerLevel serverLevel) {
-            spawnParticlesForTrackedDripstones(serverLevel);
+            spawnParticlesForTrackedIcicles(serverLevel);
 
             cleanupCounter++;
             if (cleanupCounter >= CLEANUP_INTERVAL) {
-                cleanupDeadDripstones(serverLevel);
+                cleanupDeadIcicles(serverLevel);
                 cleanupCounter = 0;
             }
         }
@@ -153,61 +164,11 @@ public class FrostedWingsEnchantmentHandler {
                 player.removeData(BOOST_DURATION);
             }
         } else if (event.getEntity() instanceof FallingBlockEntity) {
-            trackedDripstones.remove(event.getEntity().getId());
+            trackedIcicles.remove(event.getEntity().getId());
         }
     }
 
-    private static void spawnParticleBurst(ServerLevel level, Player player) {
-        level.sendParticles(
-                ParticleTypes.SNOWFLAKE,
-                player.getX(),
-                player.getY() + 1,
-                player.getZ(),
-                30,
-                1.0,
-                0.5,
-                1.0,
-                0.1
-        );
-
-        level.sendParticles(
-                ParticleTypes.SOUL_FIRE_FLAME,
-                player.getX(),
-                player.getY() + 1,
-                player.getZ(),
-                20,
-                0.8,
-                0.4,
-                0.8,
-                0.05
-        );
-
-        level.sendParticles(
-                ParticleTypes.CLOUD,
-                player.getX(),
-                player.getY() + 1,
-                player.getZ(),
-                15,
-                0.8,
-                0.4,
-                0.8,
-                0.05
-        );
-
-        level.playSeededSound(
-                null,
-                player.getX(),
-                player.getY(),
-                player.getZ(),
-                SoundEvents.GLASS_BREAK,
-                SoundSource.PLAYERS,
-                0.5f,
-                1.5f,
-                level.getRandom().nextLong()
-        );
-    }
-
-    private static void dropDripstone(Player player) {
+    private static void dropIcicle(Player player) {
         if (!(player.level() instanceof ServerLevel serverLevel)) {
             return;
         }
@@ -215,15 +176,17 @@ public class FrostedWingsEnchantmentHandler {
         int dropCount = 1 + serverLevel.getRandom().nextInt(2);
 
         for (int i = 0; i < dropCount; i++) {
-            BlockPos spawnPos = player.blockPosition();
+            BlockPos spawnPos = player.blockPosition().below();
 
-            BlockState tipState = Blocks.POINTED_DRIPSTONE.defaultBlockState()
+            BlockState icicleTip = WinterEnchantmentsBlocks.ICICLE.get().defaultBlockState()
                     .setValue(PointedDripstoneBlock.TIP_DIRECTION, net.minecraft.core.Direction.DOWN)
-                    .setValue(PointedDripstoneBlock.THICKNESS, DripstoneThickness.TIP);
+                    .setValue(PointedDripstoneBlock.THICKNESS, DripstoneThickness.TIP)
+                    .setValue(IcicleBlock.ICICLE_TYPE, IcicleBlock.IcicleType.TIP);
 
-            BlockState baseState = Blocks.POINTED_DRIPSTONE.defaultBlockState()
+            BlockState icicleBase = WinterEnchantmentsBlocks.ICICLE.get().defaultBlockState()
                     .setValue(PointedDripstoneBlock.TIP_DIRECTION, net.minecraft.core.Direction.DOWN)
-                    .setValue(PointedDripstoneBlock.THICKNESS, DripstoneThickness.FRUSTUM);
+                    .setValue(PointedDripstoneBlock.THICKNESS, DripstoneThickness.FRUSTUM)
+                    .setValue(IcicleBlock.ICICLE_TYPE, IcicleBlock.IcicleType.BASE);
 
             double offsetX = (serverLevel.getRandom().nextDouble() - 0.5) * 0.3;
             double offsetZ = (serverLevel.getRandom().nextDouble() - 0.5) * 0.3;
@@ -231,23 +194,23 @@ public class FrostedWingsEnchantmentHandler {
             FallingBlockEntity fallingTip = FallingBlockEntity.fall(
                     serverLevel,
                     spawnPos,
-                    tipState
+                    icicleTip
             );
-            fallingTip.setHurtsEntities(6.0f, 40);
+            fallingTip.setHurtsEntities(0.8f, 50);
             fallingTip.setDeltaMovement(fallingTip.getDeltaMovement().add(offsetX, 0, offsetZ));
 
             FallingBlockEntity fallingBase = FallingBlockEntity.fall(
                     serverLevel,
                     spawnPos,
-                    baseState
+                    icicleBase
             );
-            fallingBase.setHurtsEntities(6.0f, 40);
+            fallingBase.setHurtsEntities(0.8f, 50);
             fallingBase.setDeltaMovement(fallingBase.getDeltaMovement().add(offsetX, 0, offsetZ));
 
-            fallingTip.startRiding(fallingBase);
+            fallingBase.startRiding(fallingTip);
 
-            trackedDripstones.put(fallingBase.getId(), fallingBase.position());
-            trackedDripstones.put(fallingTip.getId(), fallingTip.position());
+            trackedIcicles.put(fallingBase.getId(), fallingBase.position());
+            trackedIcicles.put(fallingTip.getId(), fallingTip.position());
 
             serverLevel.playSeededSound(
                     null,
@@ -256,53 +219,65 @@ public class FrostedWingsEnchantmentHandler {
                     spawnPos.getZ(),
                     SoundEvents.TRIDENT_THROW,
                     SoundSource.PLAYERS,
-                    0.6f,
-                    1.4f,
+                    0.4f,
+                    1.2f,
                     serverLevel.getRandom().nextLong()
+            );
+
+            serverLevel.sendParticles(
+                    ParticleTypes.CLOUD,
+                    player.getX(),
+                    player.getY() - 1.5,
+                    player.getZ(),
+                    10,
+                    2,
+                    0,
+                    2,
+                    0.02
             );
         }
     }
 
-    private static void spawnParticlesForTrackedDripstones(ServerLevel level) {
-        for (Map.Entry<Integer, Vec3> entry : trackedDripstones.entrySet()) {
+    private static void spawnParticlesForTrackedIcicles(ServerLevel level) {
+        for (Map.Entry<Integer, Vec3> entry : trackedIcicles.entrySet()) {
             Entity entity = level.getEntity(entry.getKey());
             if (entity instanceof FallingBlockEntity fallingBlock) {
                 if (level.getRandom().nextInt(2) == 0) {
                     level.sendParticles(
-                            ParticleTypes.SNOWFLAKE,
+                            ParticleTypes.FISHING,
                             fallingBlock.getX(),
-                            fallingBlock.getY() + 0.5,
+                            fallingBlock.getY(),
                             fallingBlock.getZ(),
                             2,
+                            0,
                             0.2,
-                            0.2,
-                            0.2,
-                            0.02
+                            0,
+                            0.05
                     );
 
                     level.sendParticles(
                             ParticleTypes.SOUL_FIRE_FLAME,
                             fallingBlock.getX(),
-                            fallingBlock.getY() + 0.3,
+                            fallingBlock.getY(),
                             fallingBlock.getZ(),
                             1,
-                            0.15,
-                            0.15,
-                            0.15,
-                            0.01
+                            0.2,
+                            0.5,
+                            0.2,
+                            0.05
                     );
                 }
 
                 if (fallingBlock.onGround()) {
-                    trackedDripstones.remove(entry.getKey());
+                    trackedIcicles.remove(entry.getKey());
                     fallingBlock.discard();
                 }
             }
         }
     }
 
-    private static void cleanupDeadDripstones(ServerLevel level) {
-        trackedDripstones.entrySet().removeIf(entry -> {
+    private static void cleanupDeadIcicles(ServerLevel level) {
+        trackedIcicles.entrySet().removeIf(entry -> {
             Entity entity = level.getEntity(entry.getKey());
             return entity == null || entity.isRemoved() || !(entity instanceof FallingBlockEntity);
         });

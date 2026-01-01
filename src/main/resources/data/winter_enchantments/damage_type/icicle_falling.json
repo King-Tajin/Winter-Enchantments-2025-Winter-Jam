@@ -1,0 +1,7 @@
+{
+  "message_id": "icicle_falling",
+  "scaling": "always",
+  "exhaustion": 0.1,
+  "effects": "freezing",
+  "death_message_type": "default"
+}

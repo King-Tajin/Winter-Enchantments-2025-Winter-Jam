@@ -14,6 +14,7 @@ public class WinterEnchantments {
         WinterEnchantmentsVillagers.POI_TYPES.register(modEventBus);
         WinterEnchantmentsVillagers.VILLAGER_PROFESSIONS.register(modEventBus);
         FrostedWingsEnchantmentHandler.ATTACHMENT_TYPES.register(modEventBus);
+        WinterEnchantmentsBlocks.BLOCKS.register(modEventBus);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onLevelTick);
         NeoForge.EVENT_BUS.addListener(SnowdriftEnchantmentHandler::onChunkUnload);

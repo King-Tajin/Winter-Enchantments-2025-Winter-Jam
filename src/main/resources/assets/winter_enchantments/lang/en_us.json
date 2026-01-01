@@ -11,5 +11,8 @@
   "enchantment.winter_enchantments.snow_plow": "Snow Plow",
   "enchantment.winter_enchantments.snow_hop": "Snow Hop",
   "enchantment.winter_enchantments.frosted_wings": "Frosted Wings",
-  "entity.minecraft.villager.snow_scribe": "Snow Scribe"
+  "entity.minecraft.villager.snow_scribe": "Snow Scribe",
+  "block.winter_enchantments.icicle": "Icicle",
+  "death.attack.icicle_shrapnel": "%1$s was shredded by icicle fragments",
+  "death.attack.icicle_falling": "%1$s was impaled by a falling icicle"
 }
