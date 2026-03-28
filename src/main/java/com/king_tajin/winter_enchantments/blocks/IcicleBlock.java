@@ -97,10 +97,10 @@ public class IcicleBlock extends PointedDripstoneBlock {
 
             spawnIcyExplosionParticles(serverLevel, pos);
             level.playSeededSound(null, pos.getX(), pos.getY(), pos.getZ(),
-                    SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.5F, 0.4F, level.random.nextLong());
+                    SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.5F, 0.4F, level.getRandom().nextLong());
 
             level.playSeededSound(null, pos.getX(), pos.getY(), pos.getZ(),
-                    SoundEvents.PLAYER_HURT_FREEZE, SoundSource.BLOCKS, 0.8F, 0.8F, level.random.nextLong());
+                    SoundEvents.PLAYER_HURT_FREEZE, SoundSource.BLOCKS, 0.8F, 0.8F, level.getRandom().nextLong());
 
             double radius = 4.0;
             AABB area = new AABB(pos).inflate(radius);
@@ -139,9 +139,9 @@ public class IcicleBlock extends PointedDripstoneBlock {
 
     private void spawnIcyExplosionParticles(ServerLevel level, BlockPos pos) {
         for (int i = 0; i < 15; i++) {
-            double offsetX = (level.random.nextDouble() - 0.5) * 3.5;
-            double offsetY = level.random.nextDouble() * 2.5;
-            double offsetZ = (level.random.nextDouble() - 0.5) * 3.5;
+            double offsetX = (level.getRandom().nextDouble() - 0.5) * 3.5;
+            double offsetY = level.getRandom().nextDouble() * 2.5;
+            double offsetZ = (level.getRandom().nextDouble() - 0.5) * 3.5;
 
             level.sendParticles(
                     ParticleTypes.END_ROD,
@@ -155,9 +155,9 @@ public class IcicleBlock extends PointedDripstoneBlock {
         }
 
         for (int i = 0; i < 40; i++) {
-            double offsetX = (level.random.nextDouble() - 0.5) * 2.5;
-            double offsetY = (level.random.nextDouble() - 0.5) * 2.5;
-            double offsetZ = (level.random.nextDouble() - 0.5) * 2.5;
+            double offsetX = (level.getRandom().nextDouble() - 0.5) * 2.5;
+            double offsetY = (level.getRandom().nextDouble() - 0.5) * 2.5;
+            double offsetZ = (level.getRandom().nextDouble() - 0.5) * 2.5;
 
             level.sendParticles(
                     ParticleTypes.SPLASH,
@@ -171,9 +171,9 @@ public class IcicleBlock extends PointedDripstoneBlock {
         }
 
         for (int i = 0; i < 40; i++) {
-            double offsetX = (level.random.nextDouble() - 0.5) * 2.5;
-            double offsetY = level.random.nextDouble() * 2.0;
-            double offsetZ = (level.random.nextDouble() - 0.5) * 2.5;
+            double offsetX = (level.getRandom().nextDouble() - 0.5) * 2.5;
+            double offsetY = level.getRandom().nextDouble() * 2.0;
+            double offsetZ = (level.getRandom().nextDouble() - 0.5) * 2.5;
 
             level.sendParticles(
                     ParticleTypes.FALLING_WATER,

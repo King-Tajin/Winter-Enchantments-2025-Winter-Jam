@@ -242,7 +242,7 @@ public class FrostTrapEnchantmentHandler {
             Map.Entry<BlockPos, Long> entry = iterator.next();
             BlockPos pos = entry.getKey();
 
-            if (new ChunkPos(pos).equals(chunkPos)) {
+            if (ChunkPos.containing(pos).equals(chunkPos)) {
                 BlockState state = level.getBlockState(pos);
                 if (state.is(Blocks.PACKED_ICE) || state.is(Blocks.POWDER_SNOW)) {
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
