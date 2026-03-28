@@ -4,6 +4,18 @@ A complete release history for the **Winter Enchantments** mod.
 
 ---
 
+## Winter Enchantments 1.0.6
+_Released on March 28, 2026_
+
+### Changes
+- Updated to 26.1 
+- changed villager trades to datagen 
+- Balance changes to **Snowrunner** enchantment:
+  - decreased speed for level one 
+  - increased speed for level two and three
+
+---
+
 ## Winter Enchantments 1.0.5
 _Released on January 1, 2026_
 
