@@ -1,0 +1,11 @@
+{
+  "trades": [
+    "winter_enchantments:snow_scribe/level_1/paper_to_emerald",
+    "winter_enchantments:snow_scribe/level_1/snowball_to_emerald",
+    "winter_enchantments:snow_scribe/level_1/emerald_to_snow_block",
+    "winter_enchantments:snow_scribe/level_1/rabbit_hide_to_emerald",
+    "winter_enchantments:snow_scribe/level_1/emerald_to_carved_pumpkin"
+  ],
+  "amount": 2,
+  "allow_duplicates": false
+}

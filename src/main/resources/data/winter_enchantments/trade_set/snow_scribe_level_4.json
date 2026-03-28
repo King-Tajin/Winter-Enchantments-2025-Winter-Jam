@@ -1,0 +1,17 @@
+{
+  "trades": [
+    "winter_enchantments:snow_scribe/level_4/emerald_to_name_tag",
+    "winter_enchantments:snow_scribe/level_4/emerald_to_blue_ice",
+    "winter_enchantments:snow_scribe/level_4/emerald_to_snow_golem_egg",
+    "winter_enchantments:snow_scribe/level_4/book_frost_resistance_1",
+    "winter_enchantments:snow_scribe/level_4/book_frost_resistance_2",
+    "winter_enchantments:snow_scribe/level_4/book_frost_resistance_3",
+    "winter_enchantments:snow_scribe/level_4/book_snow_hop_1",
+    "winter_enchantments:snow_scribe/level_4/book_snow_hop_2",
+    "winter_enchantments:snow_scribe/level_4/book_snow_hop_3",
+    "winter_enchantments:snow_scribe/level_4/book_frost_walker_1",
+    "winter_enchantments:snow_scribe/level_4/book_frost_walker_2"
+  ],
+  "amount": 2,
+  "allow_duplicates": false
+}

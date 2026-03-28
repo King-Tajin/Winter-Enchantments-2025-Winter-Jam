@@ -1,0 +1,19 @@
+{
+  "trades": [
+    "winter_enchantments:snow_scribe/level_5/book_frostbite_1",
+    "winter_enchantments:snow_scribe/level_5/book_frostbite_2",
+    "winter_enchantments:snow_scribe/level_5/book_frostbite_3",
+    "winter_enchantments:snow_scribe/level_5/book_snowdrift_1",
+    "winter_enchantments:snow_scribe/level_5/book_snowdrift_2",
+    "winter_enchantments:snow_scribe/level_5/book_snowdrift_3",
+    "winter_enchantments:snow_scribe/level_5/book_snow_runner_1",
+    "winter_enchantments:snow_scribe/level_5/book_snow_runner_2",
+    "winter_enchantments:snow_scribe/level_5/book_snow_runner_3",
+    "winter_enchantments:snow_scribe/level_5/book_frost_trap_1",
+    "winter_enchantments:snow_scribe/level_5/book_frosted_wings_1",
+    "winter_enchantments:snow_scribe/level_5/emerald_to_packed_ice_bulk",
+    "winter_enchantments:snow_scribe/level_5/emerald_to_blue_ice_bulk"
+  ],
+  "amount": 2,
+  "allow_duplicates": false
+}

@@ -1,0 +1,1 @@
+{ "wants": { "id": "minecraft:rabbit_hide", "count": 6 }, "gives": { "id": "minecraft:emerald", "count": 1 }, "max_uses": 16, "xp": 1, "reputation_discount": 0.05 }
