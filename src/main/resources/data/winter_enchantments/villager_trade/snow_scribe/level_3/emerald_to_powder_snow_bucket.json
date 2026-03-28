@@ -1,0 +1,1 @@
+{ "wants": { "id": "minecraft:emerald", "count": 8 }, "gives": { "id": "minecraft:powder_snow_bucket", "count": 1 }, "max_uses": 8, "xp": 10, "reputation_discount": 0.05 }

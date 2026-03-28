@@ -1,0 +1,11 @@
+{
+  "trades": [
+    "winter_enchantments:snow_scribe/level_3/emerald_to_packed_ice",
+    "winter_enchantments:snow_scribe/level_3/emerald_to_powder_snow_bucket",
+    "winter_enchantments:snow_scribe/level_3/emerald_to_snowballs",
+    "winter_enchantments:snow_scribe/level_3/book_snow_shoes_1",
+    "winter_enchantments:snow_scribe/level_3/book_snow_cushion_1"
+  ],
+  "amount": 2,
+  "allow_duplicates": false
+}

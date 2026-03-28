@@ -1,0 +1,12 @@
+{
+  "trades": [
+    "winter_enchantments:snow_scribe/level_2/emerald_to_ice",
+    "winter_enchantments:snow_scribe/level_2/emerald_to_leather_boots",
+    "winter_enchantments:snow_scribe/level_2/snow_block_to_emerald",
+    "winter_enchantments:snow_scribe/level_2/book_frozen_stability_1",
+    "winter_enchantments:snow_scribe/level_2/book_ice_claws_1",
+    "winter_enchantments:snow_scribe/level_2/book_snow_plow_1"
+  ],
+  "amount": 2,
+  "allow_duplicates": false
+}
