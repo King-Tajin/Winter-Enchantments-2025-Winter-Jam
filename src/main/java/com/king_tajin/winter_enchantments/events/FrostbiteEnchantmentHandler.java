@@ -56,7 +56,7 @@ public class FrostbiteEnchantmentHandler {
             if (level > 0) {
                 LivingEntity target = event.getEntity();
                 UUID targetId = target.getUUID();
-                int duration = 20 + (level * 50);
+                int duration = 30 + (level * 55);
                 freezingDuration.put(targetId, duration);
             }
         } catch (Exception ignored) {}
