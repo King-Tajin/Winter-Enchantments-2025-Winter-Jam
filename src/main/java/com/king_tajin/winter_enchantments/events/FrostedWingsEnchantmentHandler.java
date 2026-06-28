@@ -23,7 +23,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.block.state.properties.SpeleothemThickness;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
@@ -185,12 +185,12 @@ public class FrostedWingsEnchantmentHandler {
 
             BlockState icicleTip = WinterEnchantmentsBlocks.ICICLE.get().defaultBlockState()
                     .setValue(PointedDripstoneBlock.TIP_DIRECTION, net.minecraft.core.Direction.DOWN)
-                    .setValue(PointedDripstoneBlock.THICKNESS, DripstoneThickness.TIP)
+                    .setValue(PointedDripstoneBlock.THICKNESS, SpeleothemThickness.TIP)
                     .setValue(IcicleBlock.ICICLE_TYPE, IcicleBlock.IcicleType.TIP);
 
             BlockState icicleBase = WinterEnchantmentsBlocks.ICICLE.get().defaultBlockState()
                     .setValue(PointedDripstoneBlock.TIP_DIRECTION, net.minecraft.core.Direction.DOWN)
-                    .setValue(PointedDripstoneBlock.THICKNESS, DripstoneThickness.FRUSTUM)
+                    .setValue(PointedDripstoneBlock.THICKNESS, SpeleothemThickness.FRUSTUM)
                     .setValue(IcicleBlock.ICICLE_TYPE, IcicleBlock.IcicleType.BASE);
 
             double offsetX = (serverLevel.getRandom().nextDouble() - 0.5) * 0.3;

@@ -19,12 +19,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.block.state.properties.SpeleothemThickness;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
@@ -43,10 +45,10 @@ public class IcicleBlock extends PointedDripstoneBlock {
     );
 
     public IcicleBlock(Properties properties) {
-        super(properties);
+        super(Blocks.PACKED_ICE.defaultBlockState(), properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(TIP_DIRECTION, Direction.DOWN)
-                .setValue(THICKNESS, DripstoneThickness.TIP)
+                .setValue(THICKNESS, SpeleothemThickness.TIP)
                 .setValue(WATERLOGGED, false)
                 .setValue(ICICLE_TYPE, IcicleType.TIP));
     }
@@ -107,7 +109,7 @@ public class IcicleBlock extends PointedDripstoneBlock {
             List<LivingEntity> nearbyEntities = level.getEntitiesOfClass(LivingEntity.class, area);
 
             for (LivingEntity entity : nearbyEntities) {
-                double distance = entity.position().distanceTo(pos.getCenter());
+                double distance = entity.position().distanceTo(Vec3.atCenterOf(pos));
                 if (distance <= radius) {
                     float damage = (float) ((12.0 * (1.0 - distance / radius)) + 3);
 

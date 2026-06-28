@@ -28,14 +28,7 @@ public class SnowPlowEnchantmentHandler {
             ResourceKey.create(Registries.ENCHANTMENT,
                     Identifier.fromNamespaceAndPath(WinterEnchantments.MODID, "snow_plow"));
 
-    private static class SnowBlockData {
-        BlockPos pos;
-        int layers;
-
-        SnowBlockData(BlockPos pos, int layers) {
-            this.pos = pos;
-            this.layers = layers;
-        }
+    private record SnowBlockData(BlockPos pos, int layers) {
     }
 
     public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
