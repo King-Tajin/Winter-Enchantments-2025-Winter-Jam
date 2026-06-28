@@ -10,6 +10,7 @@ _Released on March 28, 2026_
 ### Changes
 - Updated to 26.2
 - Updated name change in dripstone enum.
+- Refactored messy code.
 
 ---
 
